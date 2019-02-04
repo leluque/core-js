@@ -331,21 +331,19 @@ function registerCEPSearching({
                     successCallback: function() {
                         $(cityId + " option").each(function() {
                             if (result.localidade === $(this).html()) {
-                                $(cityId).val($(this).val());
-                                
-                                $(cityId).trigger('change');
+                                $(cityId).val($(this).val());                                
                                 $(cityId).focus();
+                                $(neighborhoodId).val(result.bairro);
+                                $(neighborhoodId).focus();
+                                $(addressId).val(result.logradouro);
+                                $(addressId).focus();
+                                $(complementId).val(result.complemento);
+                                $(complementId).focus();
                                 return;
                             }
                         });
                     }
                 });
-                $(neighborhoodId).val(result.bairro);
-                $(neighborhoodId).focus();
-                $(addressId).val(result.logradouro);
-                $(addressId).focus();
-                $(complementId).val(result.complemento);
-                $(complementId).focus();
                 
                 if(successCallback) {
                     successCallback();
