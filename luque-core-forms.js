@@ -480,38 +480,47 @@ function setDatePicker({
 
 }
 
+function processCheckboxValue({
+    checkboxId,
+    targetId,
+    inverse = true} = {}) {
+    
+    checkboxId = getJQueryId(checkboxId);
+    targetId = getJQueryId(targetId);
+    
+    let $checkbox = $(checkboxId);
+    if(inverse) {
+        if($checkbox.is(':checked')) {
+            $(targetId).prop("disabled", true);
+        } else {
+            $(targetId).prop("disabled", false);
+        }
+    } else {
+        if($checkbox.is(':checked')) {
+            $(targetId).prop("disabled", false);
+        } else {
+            $(targetId).prop("disabled", true);
+        }
+    }
+}
+
 function configureCheckboxToggle({
     checkboxId,
     targetId,
     inverse = true} = {}) {
 
-        // A) Inverse:
-        //   * When checkbox is checked, target is disabled.
-        //   * When checkbox is NOT checked, target is enabled.
-        // B) Direct:
-        //   * When checkbox is checked, target is enabled.
-        //   * When checkbox is NOT checked, target is disabled.
+    // A) Inverse:
+    // * When checkbox is checked, target is disabled.
+    // * When checkbox is NOT checked, target is enabled.
+    // B) Direct:
+    // * When checkbox is checked, target is enabled.
+    // * When checkbox is NOT checked, target is disabled.
 
-        checkboxId = getJQueryId(checkboxId);
-        targetId = getJQueryId(targetId);
-
-        $(checkboxId).on('change', function() {
-
-            if(this.inverse) {
-                if(this.checked) {
-                    $(targetId).prop("disabled", true);
-                } else {
-                    $(targetId).prop("disabled", false);
-                }
-            } else {
-                if(this.checked) {
-                    $(targetId).prop("disabled", false);
-                } else {
-                    $(targetId).prop("disabled", true);
-                }
-            }
-
-        });
+    processCheckboxValue({checkboxId: checkboxId, targetId: targetId, inverse: inverse});
+    
+    $(checkboxId).on('change', function() {
+        processCheckboxValue({checkboxId: checkboxId, targetId: targetId, inverse: inverse});
+    });
 
 }
 
