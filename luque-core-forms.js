@@ -480,6 +480,41 @@ function setDatePicker({
 
 }
 
+function configureCheckboxToggle({
+    checkboxId,
+    targetId,
+    inverse = true} = {}) {
+
+        // A) Inverse:
+        //   * When checkbox is checked, target is disabled.
+        //   * When checkbox is NOT checked, target is enabled.
+        // B) Direct:
+        //   * When checkbox is checked, target is enabled.
+        //   * When checkbox is NOT checked, target is disabled.
+
+        checkboxId = getJQueryId(checkboxId);
+        targetId = getJQueryId(targetId);
+
+        $(checkboxId).on('change', function() {
+
+            if(this.inverse) {
+                if(this.checked) {
+                    $(targetId).prop("disabled", true);
+                } else {
+                    $(targetId).prop("disabled", false);
+                }
+            } else {
+                if(this.checked) {
+                    $(targetId).prop("disabled", false);
+                } else {
+                    $(targetId).prop("disabled", true);
+                }
+            }
+
+        });
+
+}
+
 function showLoadingAlert() {
     $(".loader-backdrop").fadeIn('normal');
 }
