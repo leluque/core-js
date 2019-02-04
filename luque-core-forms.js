@@ -332,7 +332,6 @@ function registerCEPSearching({
                         $(cityId + " option").each(function() {
                             if (result.localidade === $(this).html()) {
                                 $(cityId).val($(this).val());                                
-                                $(cityId).focus();
                                 $(neighborhoodId).val(result.bairro);
                                 $(neighborhoodId).focus();
                                 $(addressId).val(result.logradouro);
