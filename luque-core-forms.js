@@ -718,6 +718,8 @@ function configureSubForm({
     
     $showAddingSubFormModalButton.on('click', function() {
         $subFormModal.modal('show');
+        $subForm.trigger('reset');
+        $subForm.validate().resetForm();   
         $subFormUpdateButton.hide();
         $subFormAddButton.show();
     });
