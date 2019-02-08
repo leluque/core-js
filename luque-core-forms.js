@@ -469,7 +469,9 @@ function setDatePicker({
     fieldId,
     format = 'dd/mm/yyyy'
 } = {}) {
-    $(getIdSelector(fieldId))
+    
+    let $datePicker = $(getIdSelector(fieldId));
+    $datePicker
     .datepicker(
             {
                 dateFormat: format,
@@ -500,6 +502,10 @@ function setDatePicker({
                 prevText: '<'
             });
 
+    $(document).ready(function(){
+        $datePicker.datepicker('setDate', getBRDate($datePicker.val()));
+    });
+    
 }
 
 function processCheckboxValue({
@@ -1123,4 +1129,17 @@ function getIdSelector(id) {
         return '#' + id;
     }
     return id;
+}
+
+/**
+ * Return a Javascript Date object from the string specified as DD/MM/YYYY.
+ * @param dateString
+ *          A string specifying a date with format DD/MM/YYYY.
+ * @returns A Javascript Date object from the string specified as DD/MM/YYYY.
+ */
+function getBRDate(dateString) {
+    let parts = dateString.split("/");
+    new Date(parseInt(parts[2], 10),
+             parseInt(parts[1], 10) - 1,
+             parseInt(parts[0], 10));   
 }
